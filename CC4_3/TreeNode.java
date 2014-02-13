@@ -9,7 +9,7 @@ public class TreeNode {
 		this.right = right;
 	}
 
-	public void dfsTree(TreeNode root) { // Print out the tree with in-order
+	public void dfsTree(TreeNode root) { // Print out the tree with pre-order
 
 		if (root != null) {
 			System.out.println(root.data);
