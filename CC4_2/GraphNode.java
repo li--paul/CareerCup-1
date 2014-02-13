@@ -13,6 +13,10 @@ public class GraphNode {
 		this.data = data;
 		this.adjs = adjs;
 	}
+
+	public GraphNode(Object data) {
+		this.data = data;
+	}
 	
 	public boolean equals(GraphNode node) {
 		if (this.data == node.data && this.adjs.size() == node.adjs.size()) {
@@ -34,7 +38,7 @@ public class GraphNode {
 				return true;
 			return false;
 		} else if (mode == 1) {
-			if (this.dfsSerachLink(this, dest))
+			if (this.dfsSearchLink(this, dest))
 				return true;
 			return false;
 		} else {
@@ -47,9 +51,11 @@ public class GraphNode {
 	private boolean bfsSearchLink(GraphNode source, GraphNode dest) {
 		if (source == null || dest == null) 
 			return false;
-		if (bfsQ.element() == null && visited.isEmpty())
+		if (bfsQ.peek() == null && visited.isEmpty()) {
 			bfsQ.offer(source);
-		while (bfsQ.element() != null) {
+			visited.add(source);
+		}
+		while (bfsQ.peek() != null) {
 			if (source.equals(dest))
 				return true;
 			for (int i = 0; i < source.adjs.size(); i++) {
@@ -64,9 +70,21 @@ public class GraphNode {
 		return false;
 	}
 
-	private boolean dfsSerachLink(GraphNode source, GraphNode dest) {
-		if(source == null || dest == null)
+	private boolean dfsSearchLink(GraphNode source, GraphNode dest) {
+		if (source == null || dest == null)
 			return false;
+		if (source.equals(dest)) {
+			return true;
+		}
+		if (source.adjs.size() != 0) {
+			for (int i = 0; i < source.adjs.size(); i++) {
+				if (!visited.contains(source.adjs.get(i))) {
+					visited.add(source.adjs.get(i));
+					if (dfsSearchLink(source.adjs.get(i), dest))
+						return true;
+				}
+			}
+		}
 		return false;
 	}
 }
