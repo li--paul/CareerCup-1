@@ -17,6 +17,5 @@ public class TreeNode {
 			dfsTree(root.right);
 		} else
 			System.out.println("#");
-		
 	}
 }
