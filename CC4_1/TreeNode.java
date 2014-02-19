@@ -16,7 +16,6 @@ public class TreeNode {
 			dfsTree(root.left);
 			dfsTree(root.right);
 		} else
-			System.out.println("#");
-		
+			System.out.println("#");		
 	}
 }
