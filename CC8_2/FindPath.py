@@ -1,5 +1,7 @@
 class FindPath:
-	result = []
+	result = [] # store current path
+	results = [] # store all the paths
+
 	def __init__(self, finalX, finalY, limitPoints):
 		self.finalX = finalX
 		self.finalY = finalY
@@ -7,14 +9,14 @@ class FindPath:
 
 	def findPath(self, currentX, currentY):
 		self.result.append([currentX, currentY])
-		hasRoute = False
-		if currentX == self.finalX - 1 and currentY == self.finalY - 1:
-			return True
-		if currentX + 1 < self.finalX and self.isValid([currentX + 1, currentY]):
-			hasRoute = self.findPath(currentX + 1, currentY)
-		if hasRoute is False and currentY + 1 < self.finalY and self.isValid([currentX, currentY + 1]):
-			hasRoute = self.findPath(currentX, currentY + 1)
-		return hasRoute
+		if currentX == self.finalX - 1 and currentY == self.finalY - 1: # if we arrive the destination
+			tem = self.result[:] # construct a slice of original result list
+			self.results.append(tem) # add the solution to the all paths list
+		if currentX + 1 < self.finalX and self.isValid([currentX + 1, currentY]): # go right
+			self.findPath(currentX + 1, currentY)
+		if currentY + 1 < self.finalY and self.isValid([currentX, currentY + 1]): # go down
+			self.findPath(currentX, currentY + 1)
+		self.result.pop() # remove a searched point
 
 
 	def isValid(self, point):
@@ -23,7 +25,8 @@ class FindPath:
 		return True
 
 	def startFind(self, startX, startY):
-		if self.findPath(startX, startY):
-			return self.result
-		return "No Way"
+		self.findPath(startX, startY)
+		if len(self.results): # there is at least on solution
+			return self.results
+		return("N") # no solution
 		

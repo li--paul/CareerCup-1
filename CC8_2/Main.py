@@ -19,5 +19,14 @@ for i in range(max(x, y)):
 	else:
 		limitPoints.append(limitPoint)
 
+print("limitPoints are")
+for limitPoint in limitPoints:
+	print(limitPoint)
+
 findPath = FindPath(x, y, limitPoints)
-print(findPath.startFind(0, 0))
+print("Result is: ")
+for path in findPath.startFind(0, 0):
+	if path is "N":
+		print("No Way")
+		break
+	print(path)
