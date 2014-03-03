@@ -1,9 +1,20 @@
-from itertools import combinations, chain
-allSet = {1, 2, 3, 4}
+allSet = [1, 2, 3, 4, 5]
+tempSet = []
 subSets = []
-allSet.add(5)
-print(allSet)
-allSet.add(3)
-print(allSet)
+
+def findAllSubsets (allset, tempSet, currentIdx):
+	if currentIdx == len(allSet):
+		subSets.append(tempSet[:])
+	else:
+		tempSet.append(allSet[currentIdx])
+		findAllSubsets(allSet, tempSet, currentIdx + 1)
+		tempSet.pop()
+
+		findAllSubsets(allSet ,tempSet, currentIdx + 1)
+
+findAllSubsets(allSet, tempSet, 0)
+print(subSets)
+
+
 	
 	
